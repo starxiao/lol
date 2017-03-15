@@ -3,7 +3,7 @@
  */
 
 export const TOKEN = {
-    'DAIWAN-API-TOKEN' : '88311-83844-54874-B81B4'
+    'DAIWAN-API-TOKEN' : '325A1-59927-1A424-6767B'
 };
 
 export const URL = 'http://lolapi.games-cube.com/';

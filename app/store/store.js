@@ -11,7 +11,10 @@ import {URL} from './lib';
 export const store = new Vuex.Store({
     state:{
         token: TOKEN,
-        url: URL
+        url: URL,
+        headerTitle: 'LOL',
+        componentName: 'home',
+        temp: true,
     },
 
 });

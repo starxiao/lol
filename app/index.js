@@ -4,8 +4,8 @@
 import Vue from 'vue';
 import View from './components/view.vue';
 import router from './router.js';
-import store from './store/store';
-// import 'vconsole';
+import {store} from './store/store.js';
+import 'vconsole';
 import './assets/css/index.css';
 const app = new Vue({
     router,

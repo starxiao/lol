@@ -32,7 +32,7 @@
         props:['headerTitle'],
         methods:{
             goBack(){
-                router.back();
+                router.go(-1);
                 console.log('is goback');
             }
         }
