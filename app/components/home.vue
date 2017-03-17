@@ -7,7 +7,6 @@
             <div class="weui-tab__panel">
                 <!--<div class="me-image" v-if="getTemp"></div>-->
                 <router-view></router-view>
-                <router-view name="a"></router-view>
                 <!--<router-view name="b"></router-view>-->
             </div>
             <div class="weui-tabbar">
@@ -32,6 +31,9 @@
     </div>
 </template>
 <style>
+    .container{
+        margin-top: 58px;
+    }
     .page__bd {
         height: 100%;
     }

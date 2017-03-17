@@ -83,6 +83,12 @@
         mounted(){
             console.log('is mounted');
         },
+        beforeUpdate(){
+            console.log('is beforeUpdate');
+        },
+        updated(){
+            console.log('updated');
+        },
         methods: {
             click(){
                 console.log(this.$router.path);

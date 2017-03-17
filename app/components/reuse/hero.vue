@@ -45,17 +45,20 @@
         name: 'hero',
         data(){
             return{
-                heroData:{}
+                heroData:{
+                    info: {},
+                    passive: {},
+                    spells: [],
+                    trait: {}
+                }
             }
         },
         beforeCreate(){
             let self = this;
-            console.log(this);
             let championId = this.$route.path.split('/');
             axios.get(self.$store.state.url + 'GetChampionDetail?champion_id=' + championId[2],{
                 headers: self.$store.state.token
             }).then(function (res) {
-                console.log(res);
                 self.$store.state.headerTitle = res.data.data[0].name;
                 axios.get(self.$store.state.url + 'GetSummonSpellIcon?summonspellid=' + res.data.data[0].id,{
                         headers: self.$store.state.token
