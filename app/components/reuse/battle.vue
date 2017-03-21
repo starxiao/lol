@@ -1,3 +1,4 @@
+<!--THIS IS BATTLE COMPONENT-->
 <template>
     <div class="page page-battle">
         <div class="page-battle__hd">我的战绩</div>
@@ -7,7 +8,7 @@
                 <div class="weui-cells">
                     <a class="weui-cell weui-cell_access" href="javascript:;">
                         <div class="weui-cell__hd">
-                            <img class="champion-image" v-bind:src="item.image" alt="">
+                            <img class="champion-image" :src="item.image" alt="">
                         </div>
                         <div class="weui-cell__bd weui-cell_primary">
                             <p class="text">{{item.gameType}} {{item.win}}</p>
@@ -25,17 +26,14 @@
         font-size: 18px;
         color: #999;
     }
-
     .text {
         padding-left: 15px;
         color: #999;
     }
-
     .champion-image {
         width: 50px;
         height: 50px;
     }
-
 </style>
 <script>
     import axios from 'axios';
@@ -92,23 +90,16 @@
                                         win: res.data.data[0].battle_list[i].win > 1 ? '失败' : '胜利',
                                     });
 
+                                    //因为通过ajax请求会导致一些顺序不对。所以需要排序
                                     self.battle = battleData.sort(function (a,b) {
                                         return a.gameTime < b.gameTime;
                                     });
-                                }).catch(function (err) {
-                                    console.log('error' + err);
-                                });
+                                })
                             }
-                        }).catch(function (err) {
-                            console.log('error' + err);
                         })
                     }
                 }
-            }).catch(function (err) {
-                console.log('error' + err);
-            });
-
-        },
-
+            })
+        }
     }
 </script>

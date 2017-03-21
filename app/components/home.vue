@@ -1,3 +1,6 @@
+
+<!-- this is home page-->
+
 <template>
     <div class="page page__home">
         <div class="page__hd">
@@ -29,40 +32,33 @@
     </div>
 </template>
 <script>
-    import 'weui';
+    import 'weui';                     // only import once
     import header from './reuse/header.vue';
     export default{
         name: 'home',
-//        beforeRouteEnter(to,from,next){
-//            console.log(this);
-//            next(function (vm) {
-//               // vm.$store.state.headerTitle = 'before';
-//            })
-//        },
         beforeCreate(){
+            console.log('is home');
             console.log(this.$route.path);
-            this.$store.state.temp = (this.$route.path === '/');
-            console.log(this.$store.state.temp);
-            this.$store.state.headerTitle = 'LOL';
-        },
-        mounted(){
-            console.log('is mounted');
+            this.$store.state.headerTitle = 'LOL';       //通过path判断headerTitle的值
         },
         data(){
             return {
                 temp: true,
             }
         },
-        computed: {
-            getHeaderTitle(){
-                return this.$store.state.headerTitle;
-            },
-            getTemp(){
-                return this.$store.state.temp;
+        beforeUpdate(){
+            console.log('is beforeUpdate');
+            if(this.$route.path === '/'){
+                this.$store.state.headerTitle = 'LOL';
             }
         },
+        computed: {
+            getHeaderTitle(){
+                return this.$store.state.headerTitle;              //return headerTitle to props
+            },
+        },
         components: {
-            'header-component': header
+            'header-component': header               // reuse header component
         }
     }
 </script>

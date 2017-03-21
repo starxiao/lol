@@ -1,3 +1,4 @@
+<!--THIS IS USER COMPONENT-->
 <template>
     <div class="page page-user">
         <div class="weui-flex">
@@ -49,7 +50,6 @@
     .page-user {
         background-color: slategrey;
     }
-
     .weui-flex__item .placeholder {
         margin: 5px;
         padding: 0 10px;
@@ -58,15 +58,12 @@
         text-align: center;
         color: #cfcfcf;
     }
-
     #user-image {
         height: 5em;
     }
 </style>
-
 <script>
     import axios from 'axios';
-
     export default{
         name: 'user',
         props: ['username'],
@@ -83,7 +80,7 @@
                     penta_kills: 0,
                     god_like_num: 0,
                     total_match_mvps: 0,
-                    total_rank_mvps: 0,
+                    total_rank_mvps: 0
                 }
             }
         },
@@ -116,25 +113,18 @@
                             }).then(function (res) {
                                 self.user.imgUrl = res.data.data[0].return;
                             });
-
                             //get areaName
                             axios.get(url + 'GetAreaName?id=' + id, {
                                 headers: token
                             }).then(function (res) {
                                 self.user.areaName = res.data.data[0].return;
-                            }).catch(function (err) {
-                                console.log('error' + err);
                             });
-
                             //set  lever powerValue battle
                             self.user.level = res.data.data[0].level;
                             self.user.powerValue = res.data.data[0].power_value;
                             self.user.praiseNum = res.data.data[0].praise_num;
 
-                        }).catch(function (err) {
-                            console.log('error' + err);
                         });
-
                         // get chaoshen mvp,
                         axios.get(url + 'UserExtInfo?qquin=' + res.data.data[i].qquin +
                             '&vaid=' + id, {
@@ -148,16 +138,10 @@
                             self.user.total_match_mvps = res.data.data[2].total_match_mvps;
                             self.user.total_rank_mvps = res.data.data[2].total_rank_mvps;
 
-                        }).catch(function (err) {
-                            console.log('error' + err);
                         })
                     }
                 }
-            }).catch(function (err) {
-                console.log('error' + err);
-            });
-        },
-        beforeMount(){
-        },
+            })
+        }
     }
 </script>

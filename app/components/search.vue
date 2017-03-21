@@ -1,3 +1,5 @@
+
+<!--this is search page-->
 <template>
     <div class="container">
         <div class="weui-search-bar" ref="searchBar">
@@ -5,7 +7,7 @@
                 <div class="weui-search-bar__box">
                     <i class="weui-icon-search"></i>
                     <input type="search" class="weui-search-bar__input" id="search_input" placeholder="搜索玩家或者英雄"
-                           @click="textInput" v-on:blur="searchBlur" ref="searchInput">
+                           @click="textInput" ref="searchInput">
                     <a href="javascript:" class="weui-icon-clear" id="search_clear"></a>
                 </div>
                 <label for="search_input" class="weui-search-bar__label" ref="search_text">
@@ -19,7 +21,7 @@
             <div class="weui-cells" v-for="item in user" :key="item.id">
                 <router-link class="weui-cell weui-cell_access" :to="{path: item.username}" append>
                     <div class="weui-cell__hd">
-                        <img class="champion-image" v-bind:src="item.imgUrl" alt="">
+                        <img class="champion-image" :src="item.imgUrl" alt="">
                     </div>
                     <div class="weui-cell__bd weui-cell_primary">
                         <p class="text">{{item.username}} {{item.areaName}}</p>
@@ -27,27 +29,23 @@
                     <span class="weui-cell__ft"></span>
                 </router-link>
             </div>
-            <!--<user-component :username="username"></user-component>-->
-            <!--<battle-component :username="username"></battle-component>-->
         </div>
     </div>
 </template>
 <style>
-    .container {
-        margin-top: 58px;
+    .text{
+        padding-left: 15px;
+        color: #999;
     }
 </style>
 <script>
     import axios from 'axios';
-    import user from './reuse/user.vue';
-    import battle from './reuse/battle.vue';
     export default{
         beforeCreate(){
             this.$store.state.headerTitle = '搜索';
         },
         data(){
             return {
-//                flag: false,
                 username: '',
                 user: [],
             }
@@ -57,19 +55,13 @@
                 console.log('is click');
                 this.$refs.searchBar.className = 'weui-search-bar weui-search-bar_focusing';
             },
-            searchBlur(){
-//                this.$refs.searchBar.className = 'weui-search-bar';
-            },
             searchCommit(){
                 console.log('commit');
                 let self = this,
                     url = self.$store.state.url,
-                    token = self.$store.state.token,
-                    areaID = 0;
-
-
-                //再次搜索时清除之前显示的
-                self.user.length = 0;
+                    token = self.$store.state.token;
+                //再次搜索时清除之前显示的加上判断排除第一次搜索没有user.length
+                if(self.user.length){self.user.length = 0;}
                 //搜到英雄展示
                 if (self.$refs.searchInput.value.length) {
 
@@ -101,25 +93,13 @@
                                             imgUrl: response.data.data[0].return
                                         });
                                         console.log(self.user);
-                                    }).catch(function (err) {
-                                        console.log('error' + err);
-                                    });
-                                }).catch(function (err) {
-                                    console.log('error' + err);
-                                });
-                            }).catch(function (err) {
-                                console.log('error' + err);
-                            });
+                                    })
+                                })
+                            })
                         }
-                    }).catch(function (err) {
-                        console.log('error' + err);
                     })
                 }
             }
         },
-        components: {
-            'user-component': user,
-            'battle-component': battle
-        }
     }
 </script>

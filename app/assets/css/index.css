@@ -1,4 +1,7 @@
-html,body,.page,.page__hd{
+html,body,.page,.page__bd{
     height: 100%;
 }
 *{margin: 0; padding: 0;}
+.container{
+    margin-top: 58px;
+}

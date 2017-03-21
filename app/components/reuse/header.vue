@@ -1,3 +1,4 @@
+<!--THIS IS HEADER COMPONENT-->
 <template>
     <div class="page page__header">
         <div class="weui-navbar">
@@ -32,7 +33,7 @@
         props:['headerTitle'],
         methods:{
             goBack(){
-                router.go(-1);
+                router.back();
                 console.log('is goback');
             }
         }

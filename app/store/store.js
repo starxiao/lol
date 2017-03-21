@@ -14,7 +14,6 @@ export const store = new Vuex.Store({
         url: URL,
         headerTitle: 'LOL',
         componentName: 'home',
-        temp: true,
     },
 
 });

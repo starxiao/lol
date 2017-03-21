@@ -1,3 +1,5 @@
+<!--this is news page-->
+
 <template>
     <div class="me-image"></div>
 </template>
@@ -14,10 +16,9 @@
     export default{
         name: 'news',
         beforeCreate(){
-            this.$store.state.headerTitle = '资讯';
-            this.$store.state.temp = (this.$route.path === '/home');
-            console.log(this.$store.state.temp);
-        },
+            console.log('is news');
+            this.$store.state.headerTitle = '资讯';             //config headerTitle to props
+        }
     }
 
 </script>

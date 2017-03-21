@@ -1,3 +1,4 @@
+<!--THIS IS HERO COMPONENT-->
 <template>
     <div class="container">
     <div class="weui-panel wey=ui-panel_access">
@@ -34,10 +35,9 @@
     .container{
         margin-top: 58px;
     }
-    .content-desc{
+    .content-desc {
         display: block;
     }
-
 </style>
 <script>
     import axios from 'axios';
@@ -54,28 +54,28 @@
             }
         },
         beforeCreate(){
-            let self = this;
+            let self = this,
+                url = self.$store.state.url,
+                token = self.$store.state.token;
+
+            //从路由path获得英雄ID
             let championId = this.$route.path.split('/');
-            axios.get(self.$store.state.url + 'GetChampionDetail?champion_id=' + championId[2],{
-                headers: self.$store.state.token
+            axios.get(url + 'GetChampionDetail?champion_id=' + championId[2],{
+                headers: token
             }).then(function (res) {
                 self.$store.state.headerTitle = res.data.data[0].name;
-                axios.get(self.$store.state.url + 'GetSummonSpellIcon?summonspellid=' + res.data.data[0].id,{
-                        headers: self.$store.state.token
+                axios.get(url + 'GetSummonSpellIcon?summonspellid=' + res.data.data[0].id,{
+                        headers: token
                     }).then(function (res) {
                         console.log(res);
                         self.heroData.url.push(res.data.data[0].return);
-                    }).catch(function (err) {
-                    console.log(err);
-                });
+                    });
                 for(let i=0; i<res.data.data[0].spells.length; i++){
-                    axios.get(self.$store.state.url + 'GetSummonSpellIcon?summonspellid=' + res.data.data[0].spells[i].id,{
-                        headers: self.$store.state.token
+                    axios.get(url + 'GetSummonSpellIcon?summonspellid=' + res.data.data[0].spells[i].id,{
+                        headers: token
                     }).then(function (res) {
                         console.log(res);
                         self.heroData.url.push(res.data.data[0].return);
-                    }).catch(function (err) {
-                        console.log(err);
                     })
                 }
                 self.heroData = {
@@ -84,19 +84,7 @@
                     spells: res.data.data[0].spells,
                     trait: res.data.data[0].trait
                 };
-                console.log(res.data.data[0].info);
-                console.log(res.data.data[0].passive);
-                console.log(res.data.data[0].spells);
-                console.log(res.data.data[0].trait);
-            }).catch(function (err) {
-                console.log(err)
-            });
-
-        },
-        created(){
-        },
-        mounted(){
-            console.log('is mounted');
-        },
+            })
+        }
     }
 </script>
