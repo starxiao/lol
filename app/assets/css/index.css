@@ -1,4 +1,4 @@
-html,body,.page{
+html,body,.page,.page__hd{
     height: 100%;
 }
 *{margin: 0; padding: 0;}
