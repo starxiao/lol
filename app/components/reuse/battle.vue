@@ -25,10 +25,12 @@
         font-size: 18px;
         color: #999;
     }
-    .text{
+
+    .text {
         padding-left: 15px;
         color: #999;
     }
+
     .champion-image {
         width: 50px;
         height: 50px;
@@ -50,50 +52,62 @@
             let self = this, gameType = '',
                 url = self.$store.state.url,
                 token = self.$store.state.token,
-                qquin = self.$props.qquin,
-                vaid = self.$props.vaid;
+                id = localStorage.getItem('areaName'),
+                battleData = [];
             axios.get(url + 'UserArea?keyword=' + self.$props.username, {
                 headers: token
             }).then(function (res) {
-                axios.get(url + 'CombatList?qquin=' + res.data.data[0].qquin +
-                    '&vaid=' + res.data.data[0].area_id + '&p=0', {
-                    headers: token
-                }).then(function (res) {
-                    console.log(res);
-                    for (let i = 0; i < res.data.data[0].battle_list.length; i++) {
-                        axios.get(url + 'GetChampionIcon?id=' + res.data.data[0].battle_list[i].champion_id, {
+                for (let i = 0; i < res.data.data.length; i++) {
+
+                    //从搜索的用户中找出大区用户
+                    if (id == res.data.data[i].area_id) {
+                        axios.get(url + 'CombatList?qquin=' + res.data.data[i].qquin +
+                            '&vaid=' + id + '&p=0', {
                             headers: token
-                        }).then(function (data) {
-                            switch (res.data.data[0].battle_list[i].game_type) {
-                                case 1:
-                                    gameType = '自定义';
-                                    break;
-                                case 2:
-                                    gameType = '人机对战';
-                                    break;
-                                case 3:
-                                    gameType = '经典匹配';
-                                    break;
-                                default :
-                                    gameType = '大乱斗';
-                                    break;
+                        }).then(function (res) {
+                            console.log(res);
+                            for (let i = 0; i < res.data.data[0].battle_list.length; i++) {
+
+                                axios.get(url + 'GetChampionIcon?id=' + res.data.data[0].battle_list[i].champion_id, {
+                                    headers: token
+                                }).then(function (data) {
+                                    switch (res.data.data[0].battle_list[i].game_type) {
+                                        case 1:
+                                            gameType = '自定义';
+                                            break;
+                                        case 2:
+                                            gameType = '人机对战';
+                                            break;
+                                        case 3:
+                                            gameType = '经典匹配';
+                                            break;
+                                        default :
+                                            gameType = '大乱斗';
+                                            break;
+                                    }
+                                    battleData.push({
+                                        image: data.data.data[0].return,
+                                        gameTime: res.data.data[0].battle_list[i].battle_time,
+                                        gameType: gameType,
+                                        win: res.data.data[0].battle_list[i].win > 1 ? '失败' : '胜利',
+                                    });
+
+                                    self.battle = battleData.sort(function (a,b) {
+                                        return a.gameTime < b.gameTime;
+                                    });
+                                }).catch(function (err) {
+                                    console.log('error' + err);
+                                });
                             }
-                            self.battle.push({
-                                image: data.data.data[0].return,
-                                gameTime: res.data.data[0].battle_list[i].battle_time,
-                                gameType: gameType,
-                                win: res.data.data[0].battle_list[i].win > 1 ? '失败' : '胜利',
-                            });
                         }).catch(function (err) {
                             console.log('error' + err);
-                        });
+                        })
                     }
-                }).catch(function (err) {
-                    console.log('error' + err);
-                })
+                }
             }).catch(function (err) {
                 console.log('error' + err);
             });
+
         },
 
     }

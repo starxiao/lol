@@ -75,7 +75,6 @@
 //        },
         beforeCreate(){
             console.log(this.$route.path);
-            console.log(this.$route.params);
             this.$store.state.temp = (this.$route.path === '/');
             console.log(this.$store.state.temp);
             this.$store.state.headerTitle = 'LOL';

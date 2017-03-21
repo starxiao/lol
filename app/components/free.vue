@@ -33,7 +33,7 @@
 //        beforeRouteEnter(){
 //        },
         beforeCreate(){
-            this.$store.state.headerTitle = '英雄';
+            this.$store.state.headerTitle = '周免英雄';
             this.$store.state.temp = (this.$route.path === '/');
             console.log(this.$store.state.temp);
         },

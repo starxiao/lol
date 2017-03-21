@@ -33,17 +33,27 @@
 //            })
 //        },
         beforeCreate(){
-            if (!(localStorage.getItem('username'))) {
-                this.$router.push({path: 'login'});
-            }
-            this.$store.state.headerTitle = localStorage.getItem('username');
+
         },
         data(){
             return {
+                username: '',
             }
         },
         created(){
-
+            console.log(this.$route.path);
+            console.log(this.$route.path.split('/'));
+            let path = this.$route.path.split('/');
+            if(path[2]  === undefined) {
+                if (!(localStorage.getItem('username'))) {
+                    this.$router.push({path: 'login'});
+                }
+                this.$store.state.headerTitle = localStorage.getItem('username');
+                this.username = localStorage.getItem('username');
+            }else{
+                this.$store.state.headerTitle = path[2];
+                this.username = path[2];
+            }
         },
         beforeUpdate(){
             console.log('beforeCreate');
@@ -53,7 +63,7 @@
         },
         computed: {
             getUsername(){
-                return localStorage.getItem('username');
+                return this.username;
             },
         },
         components: {
