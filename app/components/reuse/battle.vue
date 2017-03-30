@@ -74,13 +74,13 @@
                                             gameType = '自定义';
                                             break;
                                         case 2:
-                                            gameType = '人机对战';
+                                            gameType = '大乱斗';
                                             break;
                                         case 3:
                                             gameType = '经典匹配';
                                             break;
                                         default :
-                                            gameType = '大乱斗';
+                                            gameType = '人机对战';
                                             break;
                                     }
                                     battleData.push({

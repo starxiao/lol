@@ -42,7 +42,7 @@ const router = new VueRouter({
                     component: Search,
                 },
                 {
-                    path: '/search/:id',
+                    path: '/search/:username',
                     component: Self,
                 },
                 {
@@ -56,10 +56,6 @@ const router = new VueRouter({
                 }
             ]
         },
-        {
-            path: '/home',
-            component: Home
-        }
     ]
 });
 

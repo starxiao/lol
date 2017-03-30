@@ -5,7 +5,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-Vue.use(Vuex);
+// Vue.use(Vuex);
 import {TOKEN} from './lib';
 import {URL} from './lib';
 export const store = new Vuex.Store({
