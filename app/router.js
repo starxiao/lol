@@ -56,7 +56,17 @@ const router = new VueRouter({
                 }
             ]
         },
-    ]
+    ],
+});
+
+router.beforeEach(function (to,from,next){
+    if (to.path !== '/login' && !localStorage.getItem('username')) {
+        console.log('not login');
+        next('/login');
+    }else{
+        // next();
+        next(vm =>{vm.to});
+    }
 });
 
 export default router;

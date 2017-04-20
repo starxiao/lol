@@ -35,6 +35,9 @@
             goBack(){
                 router.back();
                 console.log('is goback');
+                console.log(this);
+                console.log(this.headerTitle);
+                console.log(this.$props.headerTitle);
             }
         }
     }
